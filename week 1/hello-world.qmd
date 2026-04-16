@@ -4,8 +4,59 @@ format: html
 editor: visual
 ---
 
+## Exercise 1
+
 ```{r}
 print("Hello World!")
 ```
 
+## Exercise 2
+
 ![whole game](/images/whole-game.png)
+
+## Exercise 4
+
+```{r}
+library(palmerpenguins)
+library(dplyr)
+library(ggplot2)
+
+data("penguins")
+
+glimpse(penguins)
+summary(penguins)
+```
+
+```{r}
+adelie <- penguins %>% filter(species == "Adelie")
+
+ggplot(adelie, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(alpha = 0.7) +
+  labs(
+    title = "Adelie penguins: bill length vs bill depth",
+    x = "Bill length (mm)",
+    y = "Bill depth (mm)"
+  )
+```
+
+```{r}
+penguins %>%
+  group_by(species) %>%
+  summarise(
+    n = sum(!is.na(bill_length_mm)),
+    mean_bill_length = mean(bill_length_mm, na.rm = TRUE),
+    median_bill_length = median(bill_length_mm, na.rm = TRUE),
+    sd_bill_length = sd(bill_length_mm, na.rm = TRUE)
+  )
+```
+
+```{r}
+penguins_long <- penguins %>%
+  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g) %>%
+  tidyr::pivot_longer(-species, names_to = "variable", values_to = "value")
+
+ggplot(penguins_long, aes(x = species, y = value, fill = species)) +
+  geom_boxplot() +
+  facet_wrap(~ variable, scales = "free_y") +
+  labs(x = "Species", y = "Value")
+```
