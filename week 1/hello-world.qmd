@@ -1,0 +1,11 @@
+---
+title: "Ex1"
+format: html
+editor: visual
+---
+
+```{r}
+print("Hello World!")
+```
+
+![whole game](/images/whole-game.png)
