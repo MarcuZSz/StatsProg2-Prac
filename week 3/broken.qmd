@@ -1,0 +1,23 @@
+---
+title: "broken"
+format: pdf
+editor: visual
+---
+
+## First chunk
+
+```{r}
+library(palmerpenguins)
+head(penguins)
+```
+
+## Second chunk
+
+```{r}
+library(ggplot2)
+library(dplyr)
+penguins %>%
+  filter(species == "Adelie") %>%
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point()
+```
